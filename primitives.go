@@ -8,7 +8,7 @@ func someFunc(num string, channel chan string) {
 	channel <- num
 }
 
-func main() {
+func Primitives() {
 
 	// GO ROUTINE
 	// NO PARTICULAR ORDER
