@@ -2,35 +2,32 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
-func someFunc(num string) {
-
-	fmt.Println(num)
-}
-
-func goRoutines() {
-	// GO ROUTINE
-	// NO PARTICULAR ORDER
-	go someFunc("25")
-
-	go someFunc("69")
-
-	// WE ARE RESPONSIBLE TO MAKE THE THREAD JOIN AGAIN
-
-	// MAKES MAIN SLEEP
-	time.Sleep(time.Second * 2)
-
-	fmt.Println("HELLO WORLD")
+func someFunc(num string, channel chan string) {
+	channel <- num
 }
 
 func main() {
 
-	// GROUTINES
-	goRoutines()
+	// GO ROUTINE
+	// NO PARTICULAR ORDER
 
-	// CHANNELS
-	
+	channel1 := make(chan string)
+	channel2 := make(chan string)
+	go someFunc("25", channel1)
+	go someFunc("69", channel2)
+
+	// WE ARE RESPONSIBLE TO MAKE THE THREAD JOIN AGAIN
+
+	// block the thread until it gets from atleast one message
+	select {
+	case msg1 := <-channel1:
+		fmt.Println(msg1)
+	case msg2 := <-channel2:
+		fmt.Println(msg2)
+	}
+
+	fmt.Println("HELLO WORLD")
 
 }
