@@ -1,3 +1,3 @@
-module github.com/pnaskardev/exploring-go-concurrency
+module github.com/pnaskardev/go-mastery/goroutines
 
 go 1.25.4
